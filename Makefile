@@ -26,6 +26,7 @@ PETA_LINUX_LOG := $(LOG_DIR)/petalinux-install.log
 XILINX_BSP_FILE := $(DL_DIR)/$(BSP_SRC_FILE)
 PETA_LINUX_FILE := $(DL_DIR)/$(PETA_LINUX_NAME)
 BUILD_DIRS := $(PETA_LINUX_DIR) $(LOG_DIR)
+IMAGE_DIR := $(BSP_DIR)/images/linux/
 
 #
 ###############################################################################
@@ -43,7 +44,7 @@ all:
 build_bsp: $(LOG_DIR)/stamp-bsp
 	cd $(PETA_LINUX_DIR) && source $(PETA_LINUX_DIR)/settings.sh && \
 	cd $(BSP_DIR) && \
-	petalinux-build
+	petalinux-build -v
 
 #
 # Top level install
@@ -75,6 +76,9 @@ $(LOG_DIR)/stamp-petalinux: $(PETA_LINUX_FILE) $(XILINX_BSP_FILE) | $(BUILD_DIRS
 	$(PETA_LINUX_FILE) --dir $(PETA_LINUX_DIR) --log $(PETA_LINUX_LOG)
 	touch $@
 
+image-list:
+	@echo Listing of $(IMAGE_DIR):
+	@ls -alsh $(IMAGE_DIR)
 
 dist-clean:
 	rm -fr $(OUT_DIR)
