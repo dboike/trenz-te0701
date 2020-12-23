@@ -20,10 +20,24 @@ Makefile.
 ```bash
 make build_bsp
 ```
-
 ## Images
-After a successful build, images can be found in 
-output/xilinx-zc702-2020.2/images/linux/
+Prebuilt images are available in the repo.  It is not necessary to download and compile Petalinux system.  Two Makefile targets are provided.  The work flow is to insert a removable SD card in a Linux system then run "make image" or one of the make image variants.  Examples as follows
+### Latest Test Image
+The 'Test Image' is the latest build of the complete system.  After successful testing on hardware, the test image will be tagged and promoted to a release build. The test image can be written to a SD card as follows:
+```bash
+git clone https://github.com/dboike/trenz-te0701
+cd trenz-te0701/
+# SD card is inserted and appears on my system as /dev/sdd
+make image IMAGE_DEV=sdd
+```
+### Reference Image
+The PetaLinux reference design image is provided in the images archive.  The purpose of this image is to provide a reference point for a known good image.  This image is provided by the Petalinux SDK / BSP.  It is not recompiled. The reference image can be written to a SD card as follows:
+```bash
+git clone https://github.com/dboike/trenz-te0701
+cd trenz-te0701/
+# SD card is inserted and appears on my system as /dev/sdd
+make image-prebuilt IMAGE_DEV=sdd
+```
 
 # Todo
 1. UART
